@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="P10_Conveyor" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Thu Oct 22 12:00:00 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="KS_Trainer">
+<Tags Use="Context">
+<Tag Name="IN_Stop_PB" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[STOP pushbutton, normally closed. 1 = not pressed, 0 = pressed or broken wire. I/O: Local:1:I.Pt00.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+</Tag>
+<Tag Name="IN_Start_PB" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[START pushbutton, normally open. 1 = pressed. I/O: Local:1:I.Pt01.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="IN_EStop_OK" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[E-stop circuit healthy. 1 = OK, 0 = E-stop pressed. I/O: Local:1:I.Pt02.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+</Tag>
+<Tag Name="IN_HOA_Hand" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Selector switch in HAND. I/O: Local:1:I.Pt03.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="IN_HOA_Auto" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Selector switch in AUTO. I/O: Local:1:I.Pt04.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+</Tag>
+<Tag Name="IN_PhotoEye" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Retro-reflective photo-eye. 1 = beam blocked (box in front of it). I/O: Local:1:I.Pt05.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="IN_VFD_Ready" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[PowerFlex 525 ready, no fault. 1 = OK. I/O: Local:1:I.Pt06.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+</Tag>
+<Tag Name="IN_Reset_PB" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[RESET pushbutton: clears the jam fault and the box count. I/O: Local:1:I.Pt07.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="OUT_Motor_Run" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Run command to the PowerFlex 525 (hardwired start). I/O: Local:2:O.Pt00.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="OUT_Run_Light" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Green RUN pilot light. I/O: Local:2:O.Pt01.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="OUT_Fault_Light" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Red FAULT pilot light. Solid = E-stop or VFD fault, flashing = jam. I/O: Local:2:O.Pt02.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="OUT_Jam_Beacon" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Amber jam beacon. Flashes while the jam fault is active. I/O: Local:2:O.Pt03.Data.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="VFD_Speed_Cmd" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Speed reference to the PowerFlex 525 in Hz (send over EtherNet/IP).]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+</Tag>
+<Tag Name="VFD_Speed_Fbk" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Output frequency feedback from the PowerFlex 525 in Hz.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+</Tag>
+<Tag Name="HMI_Start_PB" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[HMI momentary START. Works in AUTO only. The PLC clears it every scan.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="HMI_Stop_PB" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[HMI momentary STOP. The PLC clears it every scan.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="HMI_Reset_Count" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[HMI momentary RESET COUNT. The PLC clears it every scan.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="HMI_Alarm_Ack" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[HMI momentary alarm acknowledge / jam reset. The PLC clears it every scan.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="HMI_Box_Count" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Boxes counted by the photo-eye (shown on the HMI).]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="HMI_Speed_Hz" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Conveyor speed in Hz for the HMI.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+</Tag>
+<Tag Name="HMI_Mode" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Mode for the HMI: 0 = OFF, 1 = HAND, 2 = AUTO.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="HMI_Status" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Status for the HMI: 0 = STOPPED, 1 = RUNNING, 2 = E-STOP, 3 = JAM, 4 = VFD FAULT.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+</Tags>
+<Programs Use="Context">
+<Program Use="Target" Name="P10_Conveyor" TestEdits="false" MainRoutineName="R00_Main" Disabled="false" Class="Standard" UseAsFolder="false">
+<Description>
+<![CDATA[Conveyor station on the K-Solution trainer: start/stop seal-in, Hand-Off-Auto, E-stop, photo-eye box counter, 5 s jam alarm, PowerFlex 525 run/speed, C-More HMI tags.]]>
+</Description>
+<Tags>
+<Tag Name="Mode_Hand" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Operating mode is HAND.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="Mode_Auto" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Operating mode is AUTO.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="Mode_Off" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Operating mode is OFF (selector centered).]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="Conv_Run_Latch" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[AUTO run latch (seal-in bit).]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="Conv_Run_Cmd" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Final run command (HAND or AUTO, no faults).]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="EStop_Active" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[E-stop is pressed.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="Fault_Active" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Any fault that must stop the conveyor.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="Jam_Fault" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Jam fault latched (photo-eye blocked too long while running).]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="Flash_1Hz" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[1 Hz flasher bit for lights.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="T_Jam" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Jam timer: photo-eye blocked 5 s while running.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[[0,5000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="5000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="T_Flash" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Free-running 1 s timer for the flasher.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[[0,1000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="C_Box" TagType="Base" DataType="COUNTER" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Box counter, counts photo-eye false-to-true transitions.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[[0,9999,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="COUNTER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="9999"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="CU" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CD" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="OV" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+</Tags>
+<Routines>
+<Routine Name="R00_Main" Type="RLL">
+<Description>
+<![CDATA[Main routine: calls each section in order, every scan.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Section 1: I/O map notes (no logic).]]>
+</Comment>
+<Text>
+<![CDATA[JSR(R01_IO_Map,0);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Section 2: work out the operating mode from the H-O-A selector.]]>
+</Comment>
+<Text>
+<![CDATA[JSR(R02_Modes,0);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Section 3: faults (E-stop, VFD, jam). Faults are solved before the run logic so they win.]]>
+</Comment>
+<Text>
+<![CDATA[JSR(R03_Faults,0);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Section 4: start/stop and run command.]]>
+</Comment>
+<Text>
+<![CDATA[JSR(R04_Run_Logic,0);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Section 5: photo-eye box counter.]]>
+</Comment>
+<Text>
+<![CDATA[JSR(R05_Box_Counter,0);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[Section 6: physical outputs (VFD run, lights, beacon).]]>
+</Comment>
+<Text>
+<![CDATA[JSR(R06_Outputs,0);]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Comment>
+<![CDATA[Section 7: HMI status words and momentary button clean-up.]]>
+</Comment>
+<Text>
+<![CDATA[JSR(R07_HMI,0);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="R01_IO_Map" Type="RLL">
+<Description>
+<![CDATA[How the IN_/OUT_ tags connect to the 5069 I/O. Notes only.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[I/O MAP. Slot 1 = 5069-IB16, slot 2 = 5069-OW4I. After you add the modules in I/O Configuration, right-click each IN_/OUT_ tag, Edit Tag Properties, set Type = Alias and point it at the address in its description (example: IN_Start_PB -> Local:1:I.Pt01.Data). In the 3D Lab and in LogixSim these stay plain BOOL tags so the simulator can write them.]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Inputs: Pt00 STOP (NC), Pt01 START, Pt02 E-stop OK, Pt03 HAND, Pt04 AUTO, Pt05 photo-eye, Pt06 VFD ready, Pt07 RESET.]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Outputs: Pt00 VFD run, Pt01 RUN light, Pt02 FAULT light, Pt03 jam beacon.]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="R02_Modes" Type="RLL">
+<Description>
+<![CDATA[Operating mode from the Hand-Off-Auto selector.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[HAND: selector in HAND and not in AUTO.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(IN_HOA_Hand)XIO(IN_HOA_Auto)OTE(Mode_Hand);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[AUTO: selector in AUTO and not in HAND.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(IN_HOA_Auto)XIO(IN_HOA_Hand)OTE(Mode_Auto);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[OFF: neither HAND nor AUTO (center position).]]>
+</Comment>
+<Text>
+<![CDATA[XIO(Mode_Hand)XIO(Mode_Auto)OTE(Mode_Off);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="R03_Faults" Type="RLL">
+<Description>
+<![CDATA[E-stop, VFD and jam faults.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[E-stop active when the E-stop circuit input drops. Fail-safe: a broken wire also stops the machine.]]>
+</Comment>
+<Text>
+<![CDATA[XIO(IN_EStop_OK)OTE(EStop_Active);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Jam timer: conveyor running and photo-eye blocked continuously. Preset 5000 ms.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Conv_Run_Cmd)XIC(IN_PhotoEye)TON(T_Jam,?,?);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Latch the jam fault when the jam timer is done.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(T_Jam.DN)OTL(Jam_Fault);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Reset the jam fault with RESET (panel or HMI) only after the photo-eye is clear.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(IN_Reset_PB),XIC(HMI_Alarm_Ack)]XIO(IN_PhotoEye)OTU(Jam_Fault);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Any fault stops the conveyor: E-stop, VFD not ready, or jam.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(EStop_Active),XIO(IN_VFD_Ready),XIC(Jam_Fault)]OTE(Fault_Active);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="R04_Run_Logic" Type="RLL">
+<Description>
+<![CDATA[Start/stop seal-in, HAND/AUTO run command, VFD speed reference.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[AUTO seal-in. START (panel or HMI) sets the latch, the latch holds itself. STOP is NC so it must be 1 to run. Any fault drops the latch.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Mode_Auto)[XIC(IN_Start_PB),XIC(HMI_Start_PB),XIC(Conv_Run_Latch)]XIC(IN_Stop_PB)XIO(HMI_Stop_PB)XIO(Fault_Active)OTE(Conv_Run_Latch);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Run command: HAND runs directly, AUTO runs from the latch. Faults always win.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(Mode_Hand),XIC(Conv_Run_Latch)]XIO(Fault_Active)OTE(Conv_Run_Cmd);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Speed reference 60.0 Hz while running.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Conv_Run_Cmd)MOV(60.0,VFD_Speed_Cmd);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Speed reference 0.0 Hz when stopped.]]>
+</Comment>
+<Text>
+<![CDATA[XIO(Conv_Run_Cmd)MOV(0.0,VFD_Speed_Cmd);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="R05_Box_Counter" Type="RLL">
+<Description>
+<![CDATA[Count boxes with the photo-eye.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Count one box each time the photo-eye goes from clear to blocked. CTU counts transitions by itself.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(IN_PhotoEye)CTU(C_Box,?,?);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Reset the count from the HMI or the RESET button.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(HMI_Reset_Count),XIC(IN_Reset_PB)]RES(C_Box);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Copy the count to the HMI.]]>
+</Comment>
+<Text>
+<![CDATA[MOV(C_Box.ACC,HMI_Box_Count);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="R06_Outputs" Type="RLL">
+<Description>
+<![CDATA[Physical outputs and the 1 Hz flasher.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[1 Hz flasher: free-running 1 s timer that restarts itself.]]>
+</Comment>
+<Text>
+<![CDATA[XIO(T_Flash.DN)TON(T_Flash,?,?);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Flash bit is ON for the first half of each second.]]>
+</Comment>
+<Text>
+<![CDATA[LES(T_Flash.ACC,500)OTE(Flash_1Hz);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Run output to the VFD.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Conv_Run_Cmd)OTE(OUT_Motor_Run);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Green RUN light while running.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Conv_Run_Cmd)OTE(OUT_Run_Light);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Red FAULT light: solid for E-stop or VFD fault, flashing for a jam.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(EStop_Active),XIO(IN_VFD_Ready),XIC(Jam_Fault)XIC(Flash_1Hz)]OTE(OUT_Fault_Light);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[Amber beacon flashes while the jam fault is active.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Jam_Fault)XIC(Flash_1Hz)OTE(OUT_Jam_Beacon);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="R07_HMI" Type="RLL">
+<Description>
+<![CDATA[HMI status words and clean-up of momentary HMI buttons.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[HMI mode number: start at 0 = OFF.]]>
+</Comment>
+<Text>
+<![CDATA[MOV(0,HMI_Mode);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[1 = HAND.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Mode_Hand)MOV(1,HMI_Mode);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[2 = AUTO.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Mode_Auto)MOV(2,HMI_Mode);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[HMI status: start at 0 = STOPPED. Later rungs win, so the most important status is written last.]]>
+</Comment>
+<Text>
+<![CDATA[MOV(0,HMI_Status);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[1 = RUNNING.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Conv_Run_Cmd)MOV(1,HMI_Status);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[3 = JAM.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Jam_Fault)MOV(3,HMI_Status);]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Comment>
+<![CDATA[4 = VFD FAULT.]]>
+</Comment>
+<Text>
+<![CDATA[XIO(IN_VFD_Ready)MOV(4,HMI_Status);]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Comment>
+<![CDATA[2 = E-STOP (highest priority).]]>
+</Comment>
+<Text>
+<![CDATA[XIC(EStop_Active)MOV(2,HMI_Status);]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Comment>
+<![CDATA[Speed feedback for the HMI.]]>
+</Comment>
+<Text>
+<![CDATA[MOV(VFD_Speed_Fbk,HMI_Speed_Hz);]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Comment>
+<![CDATA[Clear the HMI momentary buttons at the end of the scan, so a lost HMI connection can never hold a button ON.]]>
+</Comment>
+<Text>
+<![CDATA[[OTU(HMI_Start_PB),OTU(HMI_Stop_PB),OTU(HMI_Reset_Count),OTU(HMI_Alarm_Ack)];]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
+</RSLogix5000Content>

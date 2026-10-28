@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="P20_ADU_House" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Thu Oct 22 12:00:00 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="KS_Trainer">
+<Tags Use="Context">
+<Tag Name="ADU_SW_Living" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Switch by the front door: living room ceiling light. 1 = ON.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_SW_Kitchen" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Switch on the dining wall: kitchen can lights. 1 = ON.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_SW_Bedroom" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Switch inside the bedroom door: bedroom ceiling light.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_SW_Hall" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Hall switch: hall ceiling light.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_SW_BathLight" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Bath switch 1: vanity light.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_SW_BathFan" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Bath switch 2: exhaust fan.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_SW_Porch" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Switch by the front door: porch light.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_Breaker_On" TagType="Base" DataType="BOOL" Dimensions="32" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Breaker status by panel space number, 1 = ON. Index = first space of the breaker: [16] bath light/fan, [20] living/kitchen lights, [21] bedroom/hall lights + smoke, [22] exterior.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]>
+</Data>
+</Tag>
+<Tag Name="ADU_Daylight" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Photocell. 1 = daytime, 0 = dark.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+</Tag>
+<Tag Name="ADU_Smoke_Detected" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Any smoke/CO alarm is sensing smoke.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_Smoke_Reset" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Momentary alarm reset. The PLC clears it every scan.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_LT_Living" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Living room ceiling light.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_LT_Kitchen" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Kitchen LED can lights.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_LT_Bedroom" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Bedroom ceiling light.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_LT_Hall" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Hall ceiling light.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_LT_BathVanity" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Bath vanity light.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_FAN_Bath" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Bath exhaust fan.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_LT_Porch" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Front porch light.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="ADU_Smoke_Horn" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[All smoke alarms sounding (interconnected).]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+</Tags>
+<Programs Use="Context">
+<Program Use="Target" Name="P20_ADU_House" TestEdits="false" MainRoutineName="R00_Main" Disabled="false" Class="Standard" UseAsFolder="false">
+<Description>
+<![CDATA[ADU house teaching logic for the 3D Lab: switched lights with breaker status, bath fan off-delay, dusk-to-dawn porch light, interconnected smoke alarm with egress lighting.]]>
+</Description>
+<Tags>
+<Tag Name="Smoke_Latch" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Smoke alarm latched until reset.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+</Tag>
+<Tag Name="T_BathFan" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Bath fan off-delay. Demo preset 15 s; use 600000 ms (10 min) or more in a real house.]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[[0,15000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="15000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+</Tags>
+<Routines>
+<Routine Name="R00_Main" Type="RLL">
+<Description>
+<![CDATA[Main routine for the ADU house.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Lighting: switches, breakers, smoke egress lighting, porch photocell.]]>
+</Comment>
+<Text>
+<![CDATA[JSR(R01_Lighting,0);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Bath exhaust fan with off-delay.]]>
+</Comment>
+<Text>
+<![CDATA[JSR(R02_Bath_Fan,0);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Smoke/CO alarm latch and horn.]]>
+</Comment>
+<Text>
+<![CDATA[JSR(R03_Smoke,0);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="R01_Lighting" Type="RLL">
+<Description>
+<![CDATA[Switched lights. A light needs its switch (or the smoke alarm) AND its breaker ON.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Living room light: switch ON, or smoke alarm (egress lighting). Needs breaker 20 ON.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(ADU_SW_Living),XIC(Smoke_Latch)]XIC(ADU_Breaker_On[20])OTE(ADU_LT_Living);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Kitchen cans: switch ON or smoke alarm. Breaker 20.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(ADU_SW_Kitchen),XIC(Smoke_Latch)]XIC(ADU_Breaker_On[20])OTE(ADU_LT_Kitchen);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Bedroom light: switch ON or smoke alarm. Breaker 21.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(ADU_SW_Bedroom),XIC(Smoke_Latch)]XIC(ADU_Breaker_On[21])OTE(ADU_LT_Bedroom);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Hall light: switch ON or smoke alarm. Breaker 21.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(ADU_SW_Hall),XIC(Smoke_Latch)]XIC(ADU_Breaker_On[21])OTE(ADU_LT_Hall);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Bath vanity light: switch ON or smoke alarm. Breaker 16.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(ADU_SW_BathLight),XIC(Smoke_Latch)]XIC(ADU_Breaker_On[16])OTE(ADU_LT_BathVanity);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[Porch light: switch ON and dark outside (photocell). Breaker 22.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ADU_SW_Porch)XIO(ADU_Daylight)XIC(ADU_Breaker_On[22])OTE(ADU_LT_Porch);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="R02_Bath_Fan" Type="RLL">
+<Description>
+<![CDATA[Bath fan keeps running after the switch turns off to clear moisture.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Off-delay timer: .DN stays ON for the preset time after the switch turns OFF.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ADU_SW_BathFan)TOF(T_BathFan,?,?);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Fan runs while the off-delay .DN bit is ON and breaker 16 is ON.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(T_BathFan.DN)XIC(ADU_Breaker_On[16])OTE(ADU_FAN_Bath);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="R03_Smoke" Type="RLL">
+<Description>
+<![CDATA[Interconnected smoke/CO alarm. Battery backup, so it works even with breaker 21 OFF.]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Latch the alarm when any alarm senses smoke.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ADU_Smoke_Detected)OTL(Smoke_Latch);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Reset only after the smoke has cleared.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ADU_Smoke_Reset)XIO(ADU_Smoke_Detected)OTU(Smoke_Latch);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[All alarms sound together while latched.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Smoke_Latch)OTE(ADU_Smoke_Horn);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Clear the momentary reset at the end of the scan.]]>
+</Comment>
+<Text>
+<![CDATA[OTU(ADU_Smoke_Reset);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
+</RSLogix5000Content>

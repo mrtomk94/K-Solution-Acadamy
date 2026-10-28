@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="35.00">
+ <Controller Name="DemoCtrl">
+  <DataTypes>
+   <DataType Name="Motor_t">
+    <Members>
+     <Member Name="Run" DataType="BOOL" Dimension="0"/>
+     <Member Name="Spd" DataType="REAL" Dimension="0"/>
+     <Member Name="Faults" DataType="DINT" Dimension="4"/>
+    </Members>
+   </DataType>
+  </DataTypes>
+  <AddOnInstructionDefinitions>
+   <AddOnInstructionDefinition Name="Scale" MainRoutineName="Logic">
+    <Parameters>
+     <Parameter Name="In" DataType="REAL"/>
+     <Parameter Name="Out" DataType="REAL"/>
+    </Parameters>
+    <Routines>
+     <Routine Name="Logic" Type="ST">
+      <STContent><Line Number="0">Out := In * 2.0;</Line></STContent>
+     </Routine>
+    </Routines>
+   </AddOnInstructionDefinition>
+  </AddOnInstructionDefinitions>
+  <Tags>
+   <Tag Name="Start" DataType="BOOL" Dimensions="0"/>
+   <Tag Name="Stop" DataType="BOOL" Dimensions="0"/>
+   <Tag Name="Running" DataType="BOOL" Dimensions="0"/>
+   <Tag Name="Count" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Rate" DataType="REAL" Dimensions="0"/>
+   <Tag Name="T1" DataType="TIMER" Dimensions="0"/>
+   <Tag Name="C1" DataType="COUNTER" Dimensions="0"/>
+   <Tag Name="M1" DataType="Motor_t" Dimensions="0"/>
+   <Tag Name="Line" DataType="Motor_t" Dimensions="3"/>
+   <Tag Name="Arr" DataType="DINT" Dimensions="10"/>
+   <Tag Name="Speeds" DataType="REAL" Dimensions="400"/>
+   <Tag Name="Small" DataType="SINT" Dimensions="0"/>
+   <Tag Name="Mid" DataType="INT" Dimensions="0"/>
+   <Tag Name="Flags" DataType="BOOL" Dimensions="8"/>
+   <Tag Name="Z00" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z01" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z02" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z03" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z04" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z05" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z06" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z07" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z08" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z09" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z10" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z11" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z12" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z13" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z14" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z15" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z16" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z17" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z18" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z19" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z20" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z21" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z22" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z23" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z24" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z25" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z26" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z27" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z28" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z29" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z30" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z31" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z32" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z33" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z34" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z35" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z36" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z37" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z38" DataType="DINT" Dimensions="0"/>
+   <Tag Name="Z39" DataType="DINT" Dimensions="0"/>
+  </Tags>
+  <Programs>
+   <Program Name="MainProgram" MainRoutineName="MainRoutine">
+    <Tags>
+     <Tag Name="Local" DataType="DINT" Dimensions="0"/>
+    </Tags>
+    <Routines>
+     <Routine Name="MainRoutine" Type="RLL">
+      <RLLContent>
+       <Rung Number="0" Type="N"><Text>XIC(Start)OTE(Running);</Text></Rung>
+       <Rung Number="1" Type="N"><Text>XIC(Running)JSR(Calc);</Text></Rung>
+      </RLLContent>
+     </Routine>
+     <Routine Name="Calc" Type="ST">
+      <STContent>
+       <Line Number="0">Count := Count + 1;</Line>
+       <Line Number="1">IF Count &gt; 10 THEN Count := 0; END_IF;</Line>
+      </STContent>
+     </Routine>
+    </Routines>
+   </Program>
+  </Programs>
+  <Tasks>
+   <Task Name="MainTask" Type="CONTINUOUS">
+    <ScheduledPrograms><ScheduledProgram Name="MainProgram"/></ScheduledPrograms>
+   </Task>
+  </Tasks>
+ </Controller>
+</RSLogix5000Content>
